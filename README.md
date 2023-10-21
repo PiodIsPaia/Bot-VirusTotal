@@ -21,7 +21,9 @@ Este é um bot para Discord que permite verificar se um arquivo é seguro ou se 
   - `VT_TOKEN` - Chave da API do VirusTotal.
 
 
-4. Execute o bot: go run ./src/index.go
+4. Execute o bot: 
+
+- `go run ./src/index.go`
 
 
 5. Use o bot:
