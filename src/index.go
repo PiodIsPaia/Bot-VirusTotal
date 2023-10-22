@@ -11,17 +11,15 @@ import (
 	"github.com/joho/godotenv"
 )
 
-var discordToken = ""     // Token do Discord do bot
-var virusTotalAPIKey = "" // Chave da API do VirusTotal
-
 func main() {
 	// Carregue as variáveis de ambiente do arquivo .env
 	if err := godotenv.Load(); err != nil {
 		fmt.Println("Erro ao carregar o arquivo .env")
+		return
 	}
 
 	// Obtenha o token do bot do Discord a partir das variáveis de ambiente
-	discordToken := os.Getenv("BOT_TOKEN")
+	var discordToken = os.Getenv("BOT_TOKEN")
 
 	// Crie uma nova sessão do Discord
 	dg, err := discordgo.New("Bot " + discordToken)
@@ -71,8 +69,8 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	// Se houver anexos na mensagem, faça o seguinte:
 	if len(m.Attachments) > 0 {
-		// Enviando a mensagem "Aguarde uns segundos..." antes de processar o arquivo
-		waitMessage, _ := s.ChannelMessageSend(m.ChannelID, "<a:carregando:1163910534081552457> Aguarde uns segundos...")
+		// Enviando a mensagem "Aguarde enquanto verificamos o arquivo..." antes de processar o arquivo
+		waitMessage, _ := s.ChannelMessageSend(m.ChannelID, "<a:carregando:1163910534081552457> Aguarde enquanto verificamos o arquivo...")
 
 		for _, attachment := range m.Attachments {
 			fileName := attachment.Filename
@@ -81,7 +79,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 			if filePath == "" {
 				s.ChannelMessageSend(m.ChannelID, "Erro ao baixar o arquivo.")
-				s.ChannelMessageDelete(m.ChannelID, waitMessage.ID) // Exclui a mensagem "Aguarde uns segundos..."
+				s.ChannelMessageDelete(m.ChannelID, waitMessage.ID) // Exclui a mensagem "Aguarde enquanto verificamos o arquivo..."
 				return
 			}
 
@@ -89,7 +87,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 			if err != nil {
 				s.ChannelMessageSend(m.ChannelID, "Erro ao analisar o arquivo.")
-				s.ChannelMessageDelete(m.ChannelID, waitMessage.ID) // Exclui a mensagem "Aguarde uns segundos..."
+				s.ChannelMessageDelete(m.ChannelID, waitMessage.ID) // Exclui a mensagem "Aguarde enquanto verificamos o arquivo..."
 				return
 			}
 
@@ -100,9 +98,9 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			virusTotalResponse := embeds.VirusTotalResponse(response)
 
 			// Use virusTotalResponse para criar a embed
-			embed := embeds.CreateVirusReportEmbed(m, virusTotalResponse)
+			embed := embeds.CreateVirusReportEmbed(m, virusTotalResponse, fileName)
 
-			// Exclua a mensagem "Aguarde uns segundos..."
+			// Exclua a mensagem "Aguarde enquanto verificamos o arquivo..."
 			s.ChannelMessageDelete(m.ChannelID, waitMessage.ID)
 
 			// Envie a embed criada
