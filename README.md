@@ -6,7 +6,7 @@ Este é um bot para Discord que permite verificar se um arquivo é seguro ou se 
 
 1. Clone este repositório:
 
-- git clone https://github.com/iFariasZ/Ilusion-Bot-VirusTotal
+- git clone https://github.com/PiodIsPaia/Ilusion-Bot-VirusTotal
 
 
 
