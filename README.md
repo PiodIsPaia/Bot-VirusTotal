@@ -23,11 +23,11 @@ Este é um bot para Discord que permite verificar se um arquivo é seguro ou se 
 
 4. Execute o bot: 
 
-- `go run ./src/index.go`
+- `go run main.go`
 
 
 5. Use o bot:
-- No Discord, envie o comando `!verificar` com um arquivo anexado para que o bot realize a verificação.
+- No Discord, envie o comando `/virustotal` com um arquivo anexado para que o bot realize a verificação.
 - O bot responderá com um relatório das ameaças encontradas no arquivo, se houver alguma.
 
 ## Personalização
