@@ -1,7 +1,6 @@
 package bot
 
 import (
-	"fmt"
 	"log"
 	"virustotal/internal/command"
 	"virustotal/internal/config"
@@ -53,7 +52,7 @@ func Run() {
 func ready(s *discordgo.Session, r *discordgo.Ready) {
 	user, err := s.User("@me")
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Println(err.Error())
 		return
 	}
 

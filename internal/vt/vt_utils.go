@@ -23,7 +23,7 @@ func CreateVirusReportEmbed(s *discordgo.Session, user *discordgo.User, response
 	}
 
 	if embed.Description == "" {
-		embed.Description = "<:check:1225850599661375539> Nenhuma ameaça foi encontrada!"
+		embed.Description = "✅ Nenhuma ameaça foi encontrada!"
 		embed.Color = 0x00FF00
 	} else {
 		embed.Color = 0xFF0000
@@ -40,7 +40,7 @@ func formatThreats(response models.VirusTotalResponse) string {
 	var threats []string
 	for scan, result := range response.Scans {
 		if result.Detected {
-			threats = append(threats, fmt.Sprintf("**<:servidor:1228841081337151499> Antivírus:** %s\n**<:Erro:1228840827283968000> Ameaça:** ``%s``", scan, result.Result))
+			threats = append(threats, fmt.Sprintf("**🔒 Antivírus:** %s\n**⚠️ Ameaça:** ``%s``", scan, result.Result))
 		}
 	}
 	return strings.Join(threats, "\n\n")
